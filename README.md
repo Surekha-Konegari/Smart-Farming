@@ -4,28 +4,27 @@
 
 This project seamlessly integrates Machine Learning (RapidMiner) with Data Visualization (Power BI) to drive smarter, data-backed decisions in agriculture. 
 
-Using the Smart Farming Sensor Data for Yield Prediction dataset from Kaggle, RapidMiner builds a Random Forest–based model to accurately forecast crop yield from soil, climate, and farm management parameters. Power BI then transforms these predictions into dynamic, interactive dashboards that reveal actionable farming insights, enabling better resource allocation, risk reduction, and productivity optimization.
+Using the Smart Farming Sensor Data for Yield Prediction dataset from Kaggle, RapidMiner is used to build a Random Forest–based model to accurately forecast crop yield from soil, climate, and farm management parameters. Power BI then transforms these predictions into dynamic, interactive dashboards that reveal actionable farming insights, enabling better resource allocation, risk reduction, and productivity optimization.
 
 ## 🎯 Problem Statement
 
 Modern agriculture faces critical challenges such as unpredictable climate conditions, inefficient resource utilization, limited adoption of real-time analytics.
-
 Farmers often rely on experience rather than data-backed insights, leading to suboptimal yields and higher costs. This project bridges that gap by combining predictive analytics with dynamic dashboards, helping stakeholders optimize productivity, resource use, and sustainability.
 
 ## 🛠 Tools & Technologies
 
-RapidMiner – Data preprocessing, model training, and prediction (Random Forest, etc.)
+**RapidMiner** – Data preprocessing, model training, and prediction (Random Forest, etc.)
 
-Power BI – Data visualization and dynamic dashboards
+**Power BI** – Data visualization and dynamic dashboards
 
-Dataset – Includes parameters like NDVI index, humidity, rainfall, soil health, and crop type
+**Dataset** – Includes parameters like NDVI index, humidity, rainfall, soil health, and crop type
 
 ## 📂 Dataset Description
 
 The Smart Farming Crop Yield Dataset – 2024 contains environmental and operational variables affecting yield across 500 farms in India, USA, and Africa.
 
 Link for dataset on kaggle : https://www.kaggle.com/datasets/atharvasoundankar/smart-farming-sensor-data-for-yield-prediction
-## 📌 Columns Description
+### 📌 Columns Description
 
 | Column Name             | Description |
 |-------------------------|-------------|
@@ -68,13 +67,19 @@ Target Variable – Crop yield (kg per hectare)
 
 <img width="1919" height="1068" alt="RapidMiner workflow" src="https://github.com/user-attachments/assets/09a120d6-c3ad-4237-99f2-4c8aa62324ad" />
 
-Algorithm: Random Forest Regression
+**Algorithm:** Random Forest Regression
 
-Input Features: Temperature, rainfall, humidity, sunlight, fertilizer type, pesticide usage, crop type, irrigation type, NDVI.
+**Input Features:** Temperature, rainfall, humidity, sunlight, fertilizer type, pesticide usage, crop type, irrigation type, NDVI.
 
-Output: Predicted yield (kg per hectare)
+**Output:** Predicted yield (kg per hectare)
 
-Result: Very low deviation between predicted and actual yield – reliable for forecasting future planting cycles.
+**Result:** Very low deviation between predicted and actual yield – reliable for forecasting future planting cycles.
+
+## 📈 Model Performance
+
+Predicted vs Actual yield scatter plot shows strong alignment using a Random Forest model.
+
+<img width="1603" height="1086" alt="image" src="https://github.com/user-attachments/assets/9eec3032-b4aa-413d-a2f1-64146e261a6a" />
 
 ## 📊 Key Insights
 
@@ -121,38 +126,14 @@ Strong correlation between NDVI and yield up to 0.8.
 
 <img width="500" height="675" src="https://github.com/user-attachments/assets/0b94aa60-aff5-4abc-babd-1a1b2786a4ba" /> <img width="500" height="676" src="https://github.com/user-attachments/assets/1c26ef7a-8563-4afe-b62f-3fc2ad546820" />
 <img width="500" height="677" src="https://github.com/user-attachments/assets/f47d1b3d-30b4-4832-8aea-848bba2a26c0" /> <img width="500" height="673" src="https://github.com/user-attachments/assets/03e8c3ed-7f19-4ec7-9717-cf0166cdcbec" />
-These Dashboards utilise KPIs, Map, slicers to make it dynamic. 
-## 📈 Model Performance
+These Dashboards utilise KPIs, Map, slicers to make it dynamic along with a navigation bar to shift between pages.
 
-Algorithm: Random Forest Regression
+**Main:** It has a map that locates the farms with their latitudes and longitudes for the crops and also has the KPI's that display the farms dynamically with the slicer for crops.
 
-Validation: Predicted vs Actual yield scatter plot shows strong alignment.
+**Regional Analysis:** It utilises KPI's(Key performance Index) to display the region, total yield by region and average temperature in the region. Total yield per region is showcased using a donut, area chart for the predicted vs actual yield and a clustered bar chart to analyse the temperature, rainfall and sunlight hours.
 
-## 📌 Use Cases
+**Irrigation and fertilizer Analysis:** This page focuses on understanding the relationship between irrigation methods, fertilizer types, and crop yield. KPIs highlight total pesticide usage and dominant fertilizer type, helping track agricultural input efficiency. Charts show total humidity percentage by irrigation type and crop, revealing how moisture levels vary across farming techniques like drip, manual, sprinkler, and no irrigation. Pesticide usage trends are analyzed by month and crop type, identifying seasonal spikes in pest control needs.
 
-Farmers – Optimize resource allocation for maximum yield.
-
-Researchers – Study environmental impact on crop productivity.
-
-Policymakers – Develop targeted agricultural support programs.
-
-## 🚀 How to Run This Project
-
-1. Clone Repository
-
-git clone https://github.com/Surekha-konegari/smart-farming.git
+**Disease Impact:** The NDVI index measures plant health using light reflection where higher values indicate healthier crops. The chart shows crop yields by NDVI for Cotton, Maize, Rice, Soybean, and Wheat. Soybean and Rice having the highest average NDVI (0.62).
 
 
-2. Run Yield Prediction in RapidMiner
-
-Import .rmp process file
-
-Load dataset
-
-Run the prediction model
-
-3. Visualize in Power BI
-
-Open .pbix dashboard file
-
-Connect to prediction output data
