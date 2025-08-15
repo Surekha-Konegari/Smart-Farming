@@ -77,6 +77,7 @@ Output: Predicted yield (kg per hectare)
 Result: Very low deviation between predicted and actual yield – reliable for forecasting future planting cycles.
 
 ## 📊 Key Insights
+
 ### 🌱 Crop Performance
 | Crop    | Farms | Total Yield (kg) | Peak Yield Months | Insight                                        |
 | ------- | ----- | ---------------- | ----------------- | ---------------------------------------------- |
@@ -120,6 +121,7 @@ Strong correlation between NDVI and yield up to 0.8.
 
 <img width="500" height="675" src="https://github.com/user-attachments/assets/0b94aa60-aff5-4abc-babd-1a1b2786a4ba" /> <img width="500" height="676" src="https://github.com/user-attachments/assets/1c26ef7a-8563-4afe-b62f-3fc2ad546820" />
 <img width="500" height="677" src="https://github.com/user-attachments/assets/f47d1b3d-30b4-4832-8aea-848bba2a26c0" /> <img width="500" height="673" src="https://github.com/user-attachments/assets/03e8c3ed-7f19-4ec7-9717-cf0166cdcbec" />
+These Dashboards utilise KPIs, Map, slicers to make it dynamic. 
 ## 📈 Model Performance
 
 Algorithm: Random Forest Regression
@@ -138,7 +140,7 @@ Policymakers – Develop targeted agricultural support programs.
 
 1. Clone Repository
 
-git clone https://github.com/yourusername/smart-farming-yield-dashboard.git
+git clone https://github.com/Surekha-konegari/smart-farming.git
 
 
 2. Run Yield Prediction in RapidMiner
