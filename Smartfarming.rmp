@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="10.1.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="10.1.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="10.1.000" expanded="true" height="68" name="Retrieve" width="90" x="447" y="85">
+        <parameter key="repository_entry" value="Smart_Farming_Crop_Yield_2024"/>
+      </operator>
+      <operator activated="true" class="nominal_to_numerical" compatibility="10.1.000" expanded="true" height="103" name="Nominal to Numerical" width="90" x="581" y="85">
+        <parameter key="return_preprocessing_model" value="false"/>
+        <parameter key="attribute_filter_type" value="subset"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value="crop_disease_status|crop_type|fertilizer_type|irrigation_type|region"/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="nominal"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="file_path"/>
+        <parameter key="block_type" value="single_value"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="single_value"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+        <parameter key="coding_type" value="unique integers"/>
+        <parameter key="use_comparison_groups" value="false"/>
+        <list key="comparison_groups"/>
+        <parameter key="unexpected_value_handling" value="all 0 and warning"/>
+        <parameter key="use_underscore_in_name" value="false"/>
+      </operator>
+      <operator activated="true" class="multiply" compatibility="10.1.000" expanded="true" height="103" name="Multiply" width="90" x="715" y="85"/>
+      <operator activated="true" class="aggregate" compatibility="10.1.000" expanded="true" height="82" name="Aggregate" width="90" x="916" y="136">
+        <parameter key="use_default_aggregation" value="false"/>
+        <parameter key="attribute_filter_type" value="all"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value=""/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="attribute_value"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="time"/>
+        <parameter key="block_type" value="attribute_block"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_matrix_row_start"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+        <parameter key="default_aggregation_function" value="average"/>
+        <list key="aggregation_attributes">
+          <parameter key="yield_kg_per_hectare" value="average"/>
+        </list>
+        <parameter key="group_by_attributes" value="region"/>
+        <parameter key="count_all_combinations" value="false"/>
+        <parameter key="only_distinct" value="false"/>
+        <parameter key="ignore_missings" value="true"/>
+      </operator>
+      <operator activated="true" class="blending:rename" compatibility="10.1.000" expanded="true" height="82" name="Rename" width="90" x="1050" y="136">
+        <list key="rename attributes">
+          <parameter key="average(yield_kg_per_hectare)" value="avg_yield_per_region"/>
+        </list>
+        <parameter key="from_attribute" value=""/>
+        <parameter key="to_attribute" value=""/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="10.1.000" expanded="true" height="82" name="Join" width="90" x="1184" y="85">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="inner"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="region" value="region"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="split_data" compatibility="10.1.000" expanded="true" height="82" name="Split Data" width="90" x="1318" y="85">
+        <enumeration key="partitions">
+          <parameter key="ratio" value="0.6"/>
+          <parameter key="ratio" value="0.4"/>
+        </enumeration>
+        <parameter key="sampling_type" value="shuffled sampling"/>
+        <parameter key="use_local_random_seed" value="true"/>
+        <parameter key="local_random_seed" value="1992"/>
+      </operator>
+      <operator activated="true" class="set_role" compatibility="10.1.000" expanded="true" height="82" name="Set Role" width="90" x="1452" y="85">
+        <parameter key="attribute_name" value="yield_kg_per_hectare"/>
+        <parameter key="target_role" value="label"/>
+        <list key="set_additional_roles"/>
+      </operator>
+      <operator activated="true" class="concurrency:parallel_random_forest" compatibility="10.1.000" expanded="true" height="103" name="Random Forest" width="90" x="1586" y="85">
+        <parameter key="number_of_trees" value="100"/>
+        <parameter key="criterion" value="least_square"/>
+        <parameter key="maximal_depth" value="10"/>
+        <parameter key="apply_pruning" value="false"/>
+        <parameter key="confidence" value="0.1"/>
+        <parameter key="apply_prepruning" value="false"/>
+        <parameter key="minimal_gain" value="0.01"/>
+        <parameter key="minimal_leaf_size" value="2"/>
+        <parameter key="minimal_size_for_split" value="4"/>
+        <parameter key="number_of_prepruning_alternatives" value="3"/>
+        <parameter key="random_splits" value="false"/>
+        <parameter key="guess_subset_ratio" value="true"/>
+        <parameter key="subset_ratio" value="0.2"/>
+        <parameter key="voting_strategy" value="confidence vote"/>
+        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="local_random_seed" value="1992"/>
+        <parameter key="enable_parallel_execution" value="true"/>
+      </operator>
+      <operator activated="true" class="apply_model" compatibility="10.1.000" expanded="true" height="82" name="Apply Model" width="90" x="1720" y="85">
+        <list key="application_parameters"/>
+      </operator>
+      <operator activated="true" class="write_excel" compatibility="10.1.000" expanded="true" height="103" name="Write Excel" width="90" x="1854" y="85">
+        <parameter key="excel_file" value="D:/SMART_FARMING.xlsx"/>
+        <parameter key="file_format" value="xlsx"/>
+        <enumeration key="sheet_names"/>
+        <parameter key="sheet_name" value="RapidMiner Data"/>
+        <parameter key="date_format" value="yyyy-MM-dd HH:mm:ss"/>
+        <parameter key="number_format" value="#.0"/>
+        <parameter key="encoding" value="SYSTEM"/>
+      </operator>
+      <connect from_op="Retrieve" from_port="output" to_op="Nominal to Numerical" to_port="example set input"/>
+      <connect from_op="Nominal to Numerical" from_port="example set output" to_op="Multiply" to_port="input"/>
+      <connect from_op="Multiply" from_port="output 1" to_op="Join" to_port="left"/>
+      <connect from_op="Multiply" from_port="output 2" to_op="Aggregate" to_port="example set input"/>
+      <connect from_op="Aggregate" from_port="example set output" to_op="Rename" to_port="example set input"/>
+      <connect from_op="Rename" from_port="example set output" to_op="Join" to_port="right"/>
+      <connect from_op="Join" from_port="join" to_op="Split Data" to_port="example set"/>
+      <connect from_op="Split Data" from_port="partition 1" to_op="Set Role" to_port="example set input"/>
+      <connect from_op="Set Role" from_port="example set output" to_op="Random Forest" to_port="training set"/>
+      <connect from_op="Random Forest" from_port="model" to_op="Apply Model" to_port="model"/>
+      <connect from_op="Random Forest" from_port="exampleSet" to_op="Apply Model" to_port="unlabelled data"/>
+      <connect from_op="Apply Model" from_port="labelled data" to_op="Write Excel" to_port="input"/>
+      <connect from_op="Write Excel" from_port="through" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>
